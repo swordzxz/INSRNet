@@ -1,0 +1,96 @@
+#### general settings
+name: test
+use_tb_logger: true
+model: srgan
+distortion: sr
+scale: 1
+#scale: 1
+gpu_ids: [1]
+
+#### datasets
+datasets:
+  train:
+    name: DIV2K
+    mode: LQGT
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/DIV2K/sr/lmbd/DIV2K_HR.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/sr/lmbd/DIV2K_LR.lmdb
+    dataroot_GT: /media/omnisky/ubuntu/zxz/DIV2K/inpait/lmbd/DIV2K_clean.lmdb
+    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/inpait/lmbd/DIV2K_rain.lmdb
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/DIV2K/inpaitx2/lmbd/DIV2K_clean.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/inpaitx2/lmbd/DIV2K_rain.lmdb
+    use_shuffle: true
+    n_workers: 6  # per GPU
+    batch_size: 2
+    GT_size: 48
+#    GT_size: 48
+    use_flip: true
+    use_rot: true
+    color: gray
+  val:
+    name: val_set14
+    mode: LQGT
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/DIV2K/val/sr/lmbd/DIV2K_test_HR.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/val/sr/lmbd/DIV2K_test_LR.lmdb
+    dataroot_GT: /media/omnisky/ubuntu/zxz/DIV2K/val/inpaitx1/lmbd/DIV2K_test_clean.lmdb
+    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/val/inpaitx1/lmbd/DIV2K_test_rain.lmdb
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/DIV2K/val/inpaitx2/lmbd/DIV2K_test_clean.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/val/inpaitx2/lmbd/DIV2K_test_rain.lmdb
+#### network structures
+network_G:
+  which_model_G: RRDBNet
+#  which_model_G: AttNet
+  in_nc: 1
+  out_nc: 1
+  nf: 64
+  nb: 5
+network_D:
+  which_model_D: discriminator_vgg_128
+  in_nc: 1
+  nf: 64
+
+#### path
+path:
+  pretrain_model_G:
+  strict_load: true
+  resume_state: ~
+  models: /media/omnisky/ubuntu/zxz/model/mmsr/test/models
+  training_state: /media/omnisky/ubuntu/zxz/model/mmsr/test/training_state
+  val_images: /media/omnisky/ubuntu/zxz/model/mmsr/test/val_images
+  log: /media/omnisky/ubuntu/zxz/model/mmsr/test/log
+  logger: /media/omnisky/ubuntu/zxz/model/mmsr/test/logger
+
+#### training settings: learning rate scheme, loss
+train:
+  lr_G: !!float 1e-4
+  weight_decay_G: 0
+  beta1_G: 0.9
+  beta2_G: 0.99
+  lr_D: !!float 1e-4
+  weight_decay_D: 0
+  beta1_D: 0.9
+  beta2_D: 0.99
+  lr_scheme: MultiStepLR
+
+  niter: 400000
+  warmup_iter: -1  # no warm up
+  lr_steps: [50000, 100000, 200000, 300000]
+  lr_gamma: 0.5
+
+  pixel_criterion: l1
+  pixel_weight: !!float 1e-2
+  feature_criterion: l1
+  feature_weight: 1
+  gan_type: ragan  # gan | ragan
+  gan_weight: !!float 5e-3
+
+  D_update_ratio: 1 
+  D_init_iters: 0
+
+  manual_seed: 10
+#  val_freq: !!float 5e3
+  val_freq: !!float 100
+#### logger
+logger:
+  print_freq: 1
+#  save_checkpoint_freq: !!float 5e3
+  save_checkpoint_freq: !!float 100

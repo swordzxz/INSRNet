@@ -1,0 +1,64 @@
+name: RRDB_ESRGAN_x2
+suffix: ~  # add suffix to saved images
+model: srgan
+distortion: sr
+scale: 2
+crop_border: ~  # crop border when evaluation. If None(~), crop the scale pixels
+gpu_ids: [0]
+
+datasets:
+  test_1:  # the 1st test dataset
+    name: DIV2K100
+    mode: LQGT
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/DIV2K/val/sr/lmbd/DIV2K_test_HR.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/val/sr/lmbd/DIV2K_test_LR.lmdb
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/DIV2K/val/sr/lmbd_rain/DIV2K_HR.lmdb
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/DIV2K/val/DIV2K100/lmdb/HRx2.lmdb
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/DIV2K/val/DIV2K100/lmdb/GCx4.lmdb
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/DIV2K/val/DIV2K100/lmdb/HRx2RGB.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/val/DIV2K100/lmdb/rainRGB.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/val/inpaitx1/lmbd/DIV2K_test_rain.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/val/sr/1119_4/1119_4.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/val/DIV2K100/lmdb/rain.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/val/DIV2K100/lmdb/EC.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/val/DIV2K100/lmdb/EC_1.lmdb
+
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/newdata/DIV2K/test/lmdb/HRRGB.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/newdata/DIV2K/test/lmdb/LRRGB.lmdb
+
+    dataroot_GT: /media/omnisky/ubuntu/zxz/newdata/DIV2K/test/lmdb/HR.lmdb
+    dataroot_LQ: /media/omnisky/ubuntu/zxz/newdata/DIV2K/test/lmdb/LR.lmdb
+
+  test_2:  # the 2st test dataset
+    name: urban100
+    mode: LQGT
+    dataroot_GT: /media/omnisky/ubuntu/zxz/newdata/Urban/lmdb/HR.lmdb
+    dataroot_LQ: /media/omnisky/ubuntu/zxz/newdata/Urban/lmdb/LR.lmdb
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/DIV2K/val/BSDS100/lmbd/HRx2.lmdb
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/DIV2K/val/BSDS100/lmbd/GCx4.lmdb
+    #    dataroot_LQ: /media/omnisky/ubuntu/zxz/model/mmsr/val/edge-connect/lmbd/BSDS100Gray.lmdb
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/DIV2K/val/BSDS100/lmbd/HRRGB.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/val/BSDS100/lmbd/rainRGB.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/val/BSDS100/lmbd/EC_1.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/val/BSDS100/lmbd/EC.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/val/BSDS100/lmbd/rain.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/val/BSDS100/lmbd/rainRGB.lmdb
+
+#### network structures
+network_G:
+  which_model_G: RRDBNet
+  in_nc: 1
+  out_nc: 1
+  nf: 64
+  nb: 16
+  upscale: 2
+
+#### path
+path:
+#  pretrain_model_G: /media/omnisky/ubuntu/zxz/model/mmsr/pretrain/RRDB_ESRGAN_x4.pth
+  pretrain_model_G1: /media/omnisky/7D37935326D33C41/zxz/model/mmsr/20200905_2/models/latest_G.pth
+  strict_load: True
+  resume_state: ~
+  results_root: /media/omnisky/7D37935326D33C41/zxz/model/mmsr/val/20200905_2
+  log:  /media/omnisky/7D37935326D33C41/zxz/model/mmsr/val/20200905_2
+

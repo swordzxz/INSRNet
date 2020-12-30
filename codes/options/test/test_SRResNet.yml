@@ -1,0 +1,87 @@
+name: MSRResNetx4
+suffix: ~  # add suffix to saved images
+model: sr
+distortion: sr
+scale: 4
+crop_border: ~  # crop border when evaluation. If None(~), crop the scale pixels
+gpu_ids: [0]
+
+datasets:
+  test_1:  # the 1st test dataset
+    name: DIV2K100
+    mode: LQGT
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/DIV2K/val/DIV2K100/lmbd/HR.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/val/DIV2K100/lmbd/rain.lmdb
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/DIV2K/val/DIV2K100/lmdb/HRRGB.lmdb
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/DIV2K/val/DIV2K100/lmdb/HRx2RGB.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/val/DIV2K100/lmdb/rainRGB.lmdb
+
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/newdata/DIV2K/test/lmdb/HRRGBx2.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/newdata/DIV2K/test/lmdb/LRRGB.lmdb'
+
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/obj_data/DIV2K/obj_test/lmdb/HRRGB.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/obj_data/DIV2K/obj_test/lmdb/LRRGB.lmdb
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/obj_data/DIV2K/obj_test/lmdb/HR.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/obj_data/DIV2K/obj_test/lmdb/LR.lmdb
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/obj_data/DIV2K/obj_test/lmdb/HRRGB.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/obj_data/DIV2K/obj_test/lmdb/LRRGB.lmdb
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/obj_data/Urban/lmdb/HRRGB.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/obj_data/Urban/lmdb/LRRGB.lmdb
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/obj_data/Urban/lmdb/HRRGBx2.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/obj_data/Urban/lmdb/LRRGB.lmdb
+
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/newdata/DIV2K/EC/test/lmdb/HR.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/newdata/DIV2K/EC/test/lmdb/LR.lmdb
+
+    dataroot_GT: /media/omnisky/ubuntu/zxz/obj_data/DIV2K/obj_test/lmdb/HRx2.lmdb
+    dataroot_LQ: /media/omnisky/ubuntu/zxz/obj_data/DIV2K/obj_test/lmdb/LR.lmdb
+
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/obj_data/DIV2K/GC/test/lmdb/HR.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/obj_data/DIV2K/GC/test/lmdb/LR.lmdb
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/newdata/DIV2K/our/test/lmdb/HR.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/newdata/DIV2K/our/test/lmdb/LR.lmdb
+#  test_2:  # the 2st test dataset
+#    name: urban100x2
+#    mode: LQGT
+###    dataroot_GT: /media/omnisky/ubuntu/zxz/DIV2K/val/BSDS100/lmbd/HR.lmdb
+###    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/val/BSDS100/lmbd/rain.lmdb
+##    dataroot_GT: /media/omnisky/ubuntu/zxz/DIV2K/val/BSDS100/lmbd/HRRGB.lmdb
+##    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/val/BSDS100/lmbd/rainRGB.lmdb
+##    dataroot_GT: /media/omnisky/ubuntu/zxz/newdata/Urban/lmdb/HRx2_ECGC.lmdb
+##    dataroot_LQ: /media/omnisky/ubuntu/zxz/newdata/Urban/lmdb/EC.lmdb
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/obj_data/Urban/lmdb/HR.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/obj_data/Urban/lmdb/LR.lmdb
+#  test_3:
+#    name: bsd100
+#    mode: LQGT
+#    dataroot_GT: ../datasets/BSD/BSDS100
+#    dataroot_LQ: ../datasets/BSD/BSDS100_bicLRx4
+#  test_4:
+#    name: urban100
+#    mode: LQGT
+#    dataroot_GT: ../datasets/urban100
+#    dataroot_LQ: ../datasets/urban100_bicLRx4
+#  test_5:
+#    name: div2k100
+#    mode: LQGT
+#    dataroot_GT: ../datasets/DIV2K100/DIV2K_valid_HR
+#    dataroot_LQ: ../datasets/DIV2K100/DIV2K_valid_bicLRx4
+
+
+#### network structures
+network_G:
+  which_model_G: MSRResNet
+  in_nc: 1
+  out_nc: 1
+  nf: 64
+  nb: 16
+  upscale: 4
+
+#### path
+path:
+#  pretrain_model_G: /media/omnisky/ubuntu/zxz/model/mmsr/pretrain/MSRResNetx4.pth
+  pretrain_model_G: /media/omnisky/7D37935326D33C41/zxz/model/mmsr/20201116_1/models/100000_G.pth
+#  pretrain_model_G: /media/omnisky/7D37935326D33C41/zxz/model/mmsr/20200915_4/models/latest_G.pth
+  strict_load: true
+  results_root: /media/omnisky/7D37935326D33C41/zxz/model/mmsr/val/obj/20201116_1
+  log: /media/omnisky/7D37935326D33C41/zxz/model/mmsr/val/obj/20201116_1

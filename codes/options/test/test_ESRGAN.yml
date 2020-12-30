@@ -1,0 +1,62 @@
+name: RRDB_ESRGAN_x1
+suffix: ~  # add suffix to saved images
+model: srgan
+distortion: sr
+scale: 4
+crop_border: ~  # crop border when evaluation. If None(~), crop the scale pixels
+gpu_ids: [0]
+
+datasets:
+  test_1:  # the 1st test dataset
+    name: DIV2K100
+    mode: LQGT
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/DIV2K/val/inpaitx1/lmbd/DIV2K_test_clean.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/DIV2K/val/inpaitx1/lmbd/DIV2K_test_rain.lmdb
+    dataroot_GT: /media/omnisky/ubuntu/zxz/newdata/DIV2K/test/lmdb/HRx2.lmdb
+    dataroot_LQ: /media/omnisky/ubuntu/zxz/newdata/DIV2K/test/lmdb/LR.lmdb
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/obj_data/DIV2K/obj_test/lmdb/HR.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/obj_data/DIV2K/obj_test/lmdb/LR.lmdb
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/newdata/DIV2K/test/lmdb/HRRGBx2.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/newdata/DIV2K/test/lmdb/LRRGB.lmdb
+
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/obj_data/Urban/lmdb/HRRGBx2.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/obj_data/Urban/lmdb/LRRGB.lmdb
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/newdata/DIV2K/GC/test/lmdb/HRx2.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/newdata/DIV2K/GC/test/lmdb/LR.lmdb
+
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/obj_data/DIV2K/GC/test/lmdb/HR.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/obj_data/DIV2K/GC/test/lmdb/LR.lmdb
+
+#    dataroot_GT: /media/omnisky/ubuntu/zxz/newdata/DIV2K/our/test/lmdb/HRx2.lmdb
+#    dataroot_LQ: /media/omnisky/ubuntu/zxz/newdata/DIV2K/our/test/lmdb/LR.lmdb
+  test_2:  # the 2st test dataset
+    name: urban100
+    mode: LQGT
+##    dataroot _GT: /media/omnisky/ubuntu/zxz/newdata/Urban/lmdb/HR.lmdb
+##    dataroot_LQ: /media/omnisky/ubuntu/zxz/newdata/Urban/lmdb/LR.lmdb
+    dataroot_GT: /media/omnisky/ubuntu/zxz/newdata/Urban/our/lmdb/HRx2.lmdb
+    dataroot_LQ: /media/omnisky/ubuntu/zxz/newdata/Urban/our/lmdb/LR.lmdb
+#  test_2:  # the 2st test dataset
+#    name: set14
+#    mode: LQGT
+#    dataroot_GT: ../datasets/val_set14/Set14
+#    dataroot_LQ: ../datasets/val_set14/Set14_bicLRx4
+
+#### network structures
+network_G:
+  which_model_G: RRDBNet
+  in_nc: 1
+  out_nc: 1
+  nf: 64
+  nb: 23
+  upscale: 2
+
+#### path
+path:
+  pretrain_model_G: /media/omnisky/ubuntu/zxz/model/mmsr/20200715_6/models/latest_G.pth
+#  pretrain_model_G: /media/omnisky/7D37935326D33C41/zxz/model/mmsr/20200819_7/models/latest_G.pth
+#  pretrain_model_G: /media/omnisky/7D37935326D33C41/zxz/model/mmsr/20201115_2/models/200000_G.pth
+  strict_load: true
+  resume_state: ~
+  results_root: /media/omnisky/ubuntu/zxz/model/mmsr/val/20200715_6
+  log: /media/omnisky/ubuntu/zxz/model/mmsr/val/20200715_6
